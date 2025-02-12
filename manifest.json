@@ -3,7 +3,11 @@
     "name": "Vizta Leads",
     "description": "Show LinkedIn user name when clicked.",
     "version": "1.0.0",
-    "permissions": ["activeTab"],
+    "permissions": [
+      "tabs",
+      "storage",
+      "activeTab"
+    ],
     "host_permissions": [
       "https://www.linkedin.com/*"
     ],
