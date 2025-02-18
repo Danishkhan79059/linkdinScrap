@@ -1,20 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const currentTab = tabs[0];
+    const stringURL = tabs[0].url;
+    const urlObj = new URL(stringURL);
+    const params = Object.fromEntries(urlObj.searchParams.entries());
+    const { name, employees } = params;
+
+    console.log("abd");
 
     if (currentTab.url.includes("")) {
+      console.log("sending message");
+
       chrome.tabs.sendMessage(
         currentTab.id,
         { action: "getUserName" },
         (response) => {
-          const userName = response?.userName || "No name found";
-          const company = response?.company || "No company found";
-          const location = response?.location || "No location found";
-          const description = response?.description || "No description";
+          const userName = response?.userName || "No username found";
+          const company = response?.company || "No company Name found ";
+          const location = response?.location || "No company location found";
+          const description = response?.description || "No description found";
           const detail = response?.detail || "No detail found";
           const contactdetails = response?.contactdetails || "no title found";
-          const firstAnchorurl = response?.firstAnchorurl || "no url found";
+          const firstAnchorurl = response?.firstAnchorurl || "no compnay url found";
           const profileImageUrl = response?.profileImageUrl || "No image URL";
+          const apolloUserName =
+            response?.apolloUserName || "no name found apollo";
+
+          console.log("stringURL", stringURL);
 
           document.getElementById(
             "user-name"
@@ -38,6 +50,18 @@ document.addEventListener("DOMContentLoaded", () => {
           document.getElementById(
             "companyurl"
           ).textContent = `ComapnyUrl : ${firstAnchorurl}`;
+          document.getElementById(
+            "apollo"
+          ).textContent = `apolloname : ${apolloUserName}`;
+          // Now, you can display these values
+          document.getElementById("url").textContent = `Industry Name: ${
+            name || "No name found"
+          }`;
+          document.getElementById(
+            "employee-name"
+          ).textContent = `Employee Name: ${
+            employees || "No employee name found"
+          }`;
 
           // Submit to ChatGPT with detailed business note instruction
           document
@@ -53,6 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
               Role/Description: ${description}
               Additional Details: ${detail}
               Contact Title: ${contactdetails}
+              industry:${name}
+              employee:${employees}
 
               Create a polished summary in 3-4 sentences that captures ${userName}'s professional background, key contributions at ${company}, and any notable skills or achievements. Ensure it is suitable for a LinkedIn bio or business profile.
             `;
@@ -66,7 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 company
               )}&contactName=${encodeURIComponent(
                 userName
-              )}&contactTitle=${encodeURIComponent(contactdetails)}`;
+              )}&contactTitle=${encodeURIComponent(
+                contactdetails
+              )}&industry=${name}&emplyees=${employees}&companyurl=${firstAnchorurl}`;
 
               // Retrieve stored tab IDs from chrome storage
               chrome.storage.local.get(
@@ -146,6 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "No companydetails";
       document.getElementById("companyurl").textContent = "No companyurl";
       document.getElementById("imageUrl").textContent = "No image URL";
+      document.getElementById("apollo").textContent = "No image URL";
     }
   });
 });

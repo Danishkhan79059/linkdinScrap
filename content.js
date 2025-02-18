@@ -11,17 +11,12 @@ function scrapeLinkedInDetails() {
 
   // Scrape the Company Name
   const companyElement = document.querySelector(
-    "div.WLisMxCTeYIQxxrpMcDkoZEhyPvVkyOQuHs"
+    "div.inline-show-more-text--is-collapsed[style*='-webkit-line-clamp:2']"
   );
-  const companyName = companyElement
-    ? companyElement.textContent.trim()
-    : "Company name not found";
-  console.log(companyName);
 
   // Scrape the Description
   const descriptionElement = document.querySelector(
-    // "div.BDYWiZkRIOLogHEIDWtAGVILxxGwODFFqFU span[aria-hidden='true']"
-    "div.iHzQgjgrDuyQVFmSEENzMqyYDBOSLJpIaKSjPgU span[aria-hidden='true']"
+    "div.display-flex.full-width div.full-width.t-14.t-normal.t-black.display-flex.align-items-center span[aria-hidden='true']"
   );
 
   // Scrape the Profile Image URL
@@ -34,24 +29,27 @@ function scrapeLinkedInDetails() {
     "div.text-body-medium.break-words[data-generated-suggestion-target]"
   );
 
-  // Scrape the detail element
+  // Scrape Contact Title
   const contactTitle = document.querySelector(
     "div.text-body-medium.break-words[data-generated-suggestion-target]"
   );
 
-  // Text ko split kar ke "Senior Salesforce Developer" ko nikaalna
-  const titleText = contactTitle.innerText;
-  const jobTitle = titleText.split("|")[0].trim(); // "Senior Salesforce Developer"
-
-  console.log(jobTitle);
-
+  // Scrape the first company URL anchor
   const firstAnchor = document.querySelector(
     'a[data-field="experience_company_logo"]'
   );
-  console.log(firstAnchor.href);
 
+  // NEW: Scrape data from Apollo-like element
+  const apolloNameElement = document.querySelector(
+    "div.zp_d9irS.EditTarget span"
+  );
+
+  // Extract text or use default placeholders if elements are missing
   const userName = nameElement ? nameElement.innerText : "No name found";
-  const firstAnchorurl = firstAnchor.href ? firstAnchor.href : "no url found";
+  const apolloUserName = apolloNameElement
+    ? apolloNameElement.innerText
+    : "No Apollo name found";
+  const firstAnchorurl = firstAnchor ? firstAnchor.href : "No URL found";
   const location = locationElement
     ? locationElement.innerText
     : "No location found";
@@ -65,20 +63,23 @@ function scrapeLinkedInDetails() {
   const profileImageUrl = imageElement ? imageElement.src : "No image found";
   const contactdetails = contactTitle
     ? contactTitle.innerText
-    : "no detail found";
+    : "No contact details found";
 
   // Log the scraped data in the console
   console.log("User's Name:", userName);
+  console.log("Apollo User's Name:", apolloUserName); // New data log
   console.log("Location:", location);
   console.log("Company Name:", company);
   console.log("Description:", description);
   console.log("Profile Image URL:", profileImageUrl);
   console.log("Detail:", detail);
-  console.log("contactTile", contactdetails);
-  console.log("companyurl", firstAnchor.href);
+  console.log("Contact Title:", contactdetails);
+  console.log("Company URL:", firstAnchorurl);
 
+  // Return all collected data
   return {
     userName,
+    apolloUserName, // Include Apollo data in the returned object
     location,
     company,
     description,
@@ -94,6 +95,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "getUserName") {
     const {
       userName,
+      apolloUserName, // Include Apollo data in the response
       location,
       company,
       description,
@@ -102,9 +104,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       contactdetails,
       firstAnchorurl,
     } = scrapeLinkedInDetails();
+
     // Send all collected data back in the response
     sendResponse({
       userName,
+      apolloUserName, // Send Apollo name back to the extension
       location,
       company,
       description,

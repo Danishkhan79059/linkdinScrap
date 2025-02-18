@@ -1,38 +1,44 @@
+
 {
-    "manifest_version": 3,
-    "name": "Vizta Leads",
-    "description": "Show LinkedIn user name when clicked.",
-    "version": "1.0.0",
-    "permissions": [
-      "tabs",
-      "storage",
-      "activeTab"
-    ],
-    "host_permissions": [
-      "https://www.linkedin.com/*"
-    ],
-    "action": {
-      "default_popup": "popup.html",
-      "default_icon": {
-        "16": "logo.png",
-        "48": "logo.png",
-        "128": "logo.png"
-      }
+  "manifest_version": 3,
+  "name": "Vizta Leads",
+  "description": "Show LinkedIn user name and Apollo data when clicked.",
+  "version": "1.0.0",
+  "permissions": [
+    "tabs",
+    "storage",
+    "activeTab",
+    "scripting",
+    "https://*.apollo.io/*"
+  ],
+  "host_permissions": [
+    "https://www.linkedin.com/*",
+    "https://app.apollo.io/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "logo.png",
+      "48": "logo.png",
+      "128": "logo.png"
+    }
+  },
+  "icons": {
+    "16": "logo.png",
+    "48": "logo.png",
+    "128": "logo.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.linkedin.com/*"],
+      "js": ["content.js"]
     },
-    "icons": {
-        "16": "logo.png",
-        "48": "logo.png",
-        "128": "logo.png"
-      },
-      "background": {
-        "service_worker": "background.js"
-      },
- 
-    "content_scripts": [
-      {
-        "matches": ["https://www.linkedin.com/*"],
-        "js": ["content.js"]
-      }
-    ]
-  }
-  
+    {
+      "matches": ["https://app.apollo.io/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
