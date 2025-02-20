@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
               const chatGptUrl = `https://chat.openai.com/?prompt=${encodeURIComponent(
                 promptText
               )}`;
-              const localHostUrl = `http://localhost:3000/dash/calls/new/?contactNumber=${encodeURIComponent(
+              const localHostUrl = `http://localhost:3000/dash/calls/addcall/?contactNumber=${encodeURIComponent(
                 contactNumber
               )}&contactCompany=${encodeURIComponent(
                 company
