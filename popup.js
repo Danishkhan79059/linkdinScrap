@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
           const description = response?.description || "No description found";
           const detail = response?.detail || "No detail found";
           const contactdetails = response?.contactdetails || "no title found";
-          const firstAnchorurl = response?.firstAnchorurl || "no compnay url found";
+          const firstAnchorurl =
+            response?.firstAnchorurl || "no compnay url found";
           const profileImageUrl = response?.profileImageUrl || "No image URL";
           const apolloUserName =
             response?.apolloUserName || "no name found apollo";

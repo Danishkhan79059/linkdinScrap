@@ -1,89 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LinkedIn User Info</title>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
       body {
         width: 400px;
-        padding: 10px;
+        padding: 15px;
+        background: #f3f3f3;
       }
 
-      #user-info p {
-        margin: 5px 0;
-        font-size: 16px;
+      .container {
+        background: #ffffff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
       }
 
-      #user-name {
-        font-weight: bold;
-      }
-      #company-name {
-        font-weight: bold;
-      }
-      #location {
-        font-weight: bold;
-      }
-      #description {
-        font-weight: bold;
-      }
-      #imageUrl {
-        font-weight: bold;
-      }
-      #detail {
-        font-weight: bold;
-      }
-      #contactdetails {
-        font-weight: bold;
-      }
-      #companyurl {
-        font-weight: bold;
-      }
-      #url {
-        font-weight: bold;
-      }
-      #employee-name {
-        font-weight: bold;
+      h4 {
+        text-align: center;
+        color: #0073b1;
+        margin-bottom: 10px;
       }
 
-      #scrapeBtn {
+      label {
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+        display: block;
         margin-top: 10px;
-        padding: 8px 12px;
-        background-color: #0073b1;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        background: #0073b1;
         color: white;
         border: none;
         border-radius: 5px;
+        font-size: 16px;
+        margin-top: 10px;
         cursor: pointer;
       }
 
-      #scrapeBtn:hover {
-        background-color: #005f8d;
+      button:hover {
+        background: #005f8d;
       }
 
-      input[type="text"] {
-        width: 100%;
-        padding: 8px;
-        margin-top: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
+      .user-info {
+        margin-top: 15px;
+      }
+
+      .user-info p {
+        font-size: 14px;
+        color: #333;
+        padding: 5px;
+        border-bottom: 1px solid #ddd;
       }
     </style>
   </head>
   <body>
-    <h4>LinkedIn User Details</h4>
-    <div id="user-info">
-      <p id="user-name">Loading...</p>
+    <div class="container">
+      <h4>LinkedIn User Details</h4>
 
-      <p id="company-name">Loading...</p>
-
-      <p id="location">Loading...</p>
-      <p id="description">Loading...</p>
-      <p id="imageUrl">Loading...</p>
-      <p id="detail">Loading...</p>
-      <p id="contactdetails">Loading...</p>
-      <p id="companyurl">Loading...</p>
-      <p id="apollo">Loading...</p>
-      <p id="url">Industry Name</p>
-      <p id="employee-name">Employee Name</p>
-      <!-- Contact Number Input Field -->
       <label for="contact-number">Contact Number:</label>
       <input
         type="text"
@@ -92,6 +88,20 @@
       />
 
       <button id="submitToChatGPTBtn">Generate Notes</button>
+
+      <div class="user-info">
+        <p id="user-name"><strong>Name:</strong> Loading...</p>
+        <p id="company-name"><strong>Company:</strong> Loading...</p>
+        <p id="location"><strong>Location:</strong> Loading...</p>
+        <p id="description"><strong>Description:</strong> Loading...</p>
+        <p id="imageUrl"><strong>Image URL:</strong> Loading...</p>
+        <p id="detail"><strong>Detail:</strong> Loading...</p>
+        <p id="contactdetails"><strong>Contact Details:</strong> Loading...</p>
+        <p id="companyurl"><strong>Company URL:</strong> Loading...</p>
+        <p id="apollo"><strong>Apollo:</strong> Loading...</p>
+        <p id="url"><strong>Industry:</strong> Loading...</p>
+        <p id="employee-name"><strong>Employee Name:</strong> Loading...</p>
+      </div>
     </div>
 
     <script src="popup.js"></script>
