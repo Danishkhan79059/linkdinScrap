@@ -81,13 +81,13 @@ document.addEventListener("DOMContentLoaded", () => {
               industry:${name}
               employee:${employees}
 
-              Create a polished summary in 3-4 sentences that captures ${userName}'s professional background, key contributions at ${company}, and any notable skills or achievements. Ensure it is suitable for a LinkedIn bio or business profile.
+              What should be my telephonic sales pitch  to this user for selling vizta .
             `;
 
               const chatGptUrl = `https://chat.openai.com/?prompt=${encodeURIComponent(
                 promptText
               )}`;
-              const localHostUrl = `http://localhost:3000/dash/calls/addcall/?contactNumber=${encodeURIComponent(
+              const localHostUrl = `https://form.vizta.in/dash/calls/addcall/?contactNumber=${encodeURIComponent(
                 contactNumber
               )}&contactCompany=${encodeURIComponent(
                 company
